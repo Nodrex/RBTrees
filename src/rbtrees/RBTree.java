@@ -8,195 +8,169 @@ package rbtrees;
  */
 public class RBTree {
 
-    Node node;//this will be root node always. (this.nod is same as this.root.node)
+    Node node;//es iqneba fesvis kvandzi yoveltvis. (this.nod igivea rac this.root.node)
     RBTree root;
     
     int size;
 
-    protected void insert(Node newNode) throws CloneNotSupportedException {
+    protected void insert(Node z) throws CloneNotSupportedException {
         size++;
         if (root == null) {
             root = this;
-            root.node = newNode;
+            root.node = z;
             root.node.parent = Node.sentinel;
             root.node.left = Node.sentinel;
             root.node.right = Node.sentinel;
             return;
         }
-        Node tmpNode = root.node;
+        Node y = root.node;
         while (true) {
-            if (newNode.key < tmpNode.key) {
-                if (tmpNode.left == Node.sentinel) break;
-                tmpNode = tmpNode.left;
+            if (z.key < y.key) {
+                if (y.left == Node.sentinel) break;
+                y = y.left;
             } else {
-                if (tmpNode.right == Node.sentinel) break;
-                tmpNode = tmpNode.right;
+                if (y.right == Node.sentinel) break;
+                y = y.right;
             }
         }
-        newNode.parent = tmpNode;
-        if (newNode.key < tmpNode.key) {
-            tmpNode.left = newNode;
+        z.parent = y;
+        if (z.key < y.key) {
+            y.left = z;
         } else {
-            tmpNode.right = newNode;
+            y.right = z;
         }
         
-        newNode.left = Node.sentinel;
-        newNode.right = Node.sentinel;
-        newNode.color = Color.Red;
+        z.left = Node.sentinel;
+        z.right = Node.sentinel;
+        z.color = Color.Red;
         
-        
-        insertFixup(newNode);
+        insertFixup(z);
     }
     
-    private void insertFixup(Node newNode){
-        while (newNode.parent.color == Color.Red) { 
-            if(newNode.parent == newNode.parent.parent.left){
-                Node tmpNode = newNode.parent.parent.right;
-                if(tmpNode.color == Color.Red){
-                    newNode.parent.color = Color.Black;
-                    tmpNode.color = Color.Black;
-                    newNode.parent.parent.color = Color.Red;
-                    newNode = newNode.parent.parent;
-                }else{
-                    if(newNode == newNode.parent.right){
-                        newNode = newNode.parent;
-                        rotateL(newNode);
+    private void insertFixup(Node z) {
+        while (z.parent.color == Color.Red) {
+            if (z.parent == z.parent.parent.left) {
+                Node y = z.parent.parent.right;
+                if (y.color == Color.Red) {
+                    z.parent.color = Color.Black;
+                    y.color = Color.Black;
+                    z.parent.parent.color = Color.Red;
+                    z = z.parent.parent;
+                } else {
+                    if (z == z.parent.right) {
+                        z = z.parent;
+                        rotateL(z);
                     }
-                    newNode.parent.color = Color.Black;
-                    newNode.parent.parent.color = Color.Red;
-                    rotateR(newNode.parent.parent);
+                    z.parent.color = Color.Black;
+                    z.parent.parent.color = Color.Red;
+                    rotateR(z.parent.parent);
                 }
-            }else if(newNode.parent == newNode.parent.parent.right){
-                Node tmpNode = newNode.parent.parent.left;
-                if(tmpNode.color == Color.Red){
-                    newNode.parent.color = Color.Black;
-                    tmpNode.color = Color.Black;
-                    newNode.parent.parent.color = Color.Red;
-                    newNode = newNode.parent.parent;
-                }else{
-                    if(newNode == newNode.parent.left){
-                        newNode = newNode.parent;
+            } else if (z.parent == z.parent.parent.right) {
+                Node y = z.parent.parent.left;
+                if (y.color == Color.Red) {
+                    z.parent.color = Color.Black;
+                    y.color = Color.Black;
+                    z.parent.parent.color = Color.Red; 
+                    z = z.parent.parent;
+                } else {
+                    if (z == z.parent.left) {
+                        z = z.parent;
                         //rotateL(newNode);
-                        rotateR(newNode.parent.parent);
+                        //rotateR(newNode.parent.parent);
+                        rotateR(z);
                     }
-                    newNode.parent.color = Color.Black;
-                    newNode.parent.parent.color = Color.Red;
+                    z.parent.color = Color.Black;
+                    z.parent.parent.color = Color.Red;
                     //rotateR(newNode.parent.parent);
-                    rotateL(newNode);
+                    //rotateL(newNode);
+                    rotateL(z.parent.parent);
                 }
             }
         }
-        root.node.color = Color.Black;
+        this.root.node.color = Color.Black;
     }
-    
-//    private void rotateL(Node newNode) {
-//        Node tmpNode = newNode.right;
-//        newNode.right = tmpNode.left;
-//        tmpNode.left.parent = newNode;
-//        tmpNode.parent = newNode.parent;
-//        if(newNode.parent == Node.sentinel){
-//            this.root.node = tmpNode;
-//        }else{
-//            if(newNode == newNode.parent.left){
-//                newNode.parent.left = tmpNode;
-//            }else{
-//                newNode.parent.right = tmpNode;
-//            }
-//        }
-//        tmpNode.left = newNode;
-//        newNode.parent = tmpNode;
-//    }
-    
-    
-        private void rotateL(Node newNode) {
-        Node tmpNode = newNode.right;
-        newNode.right = tmpNode.left;
-        
-//        if(tmpNode.left != Node.sentinel){
-//            tmpNode.left.parent = newNode;
-//        }
-        
-        tmpNode.left.parent = newNode;
-        
-        tmpNode.parent = newNode.parent;
-        if(newNode.parent == Node.sentinel){
-            this.root.node = tmpNode;
-        }else{
-            if(newNode == newNode.parent.left){
-                newNode.parent.left = tmpNode;
-            }else{
-                newNode.parent.right = tmpNode;
+
+    private void rotateL(Node x) {
+        Node y = x.right;
+        x.right = y.left;
+
+        if(y.left != null){
+            y.left.parent = x;
+        }
+
+        y.parent = x.parent;
+        if (x.parent == Node.sentinel) {
+            this.root.node = y;
+        } else {
+            if (x == x.parent.left) {
+                x.parent.left = y;
+            } else {
+                x.parent.right = y;
             }
         }
-        tmpNode.left = newNode;
-        newNode.parent = tmpNode;
+        y.left = x;
+        x.parent = y;
     }
-        
-            private void rotateR(Node newNode) {
-        Node tmpNode = newNode.left;
-        newNode.left = tmpNode.right;
-        
-//        if(tmpNode.right != Node.sentinel){
-//            tmpNode.right.parent = newNode;
-//        }
-        
 
-tmpNode.right.parent = newNode;
+    private void rotateR(Node x) {
+        Node y = x.left;
+        x.left = y.right;
 
-        
-        
-        tmpNode.parent = newNode.parent;
-        
-        if(newNode.parent == Node.sentinel){
-            this.root.node = tmpNode;
-        }else{
-            if(newNode == newNode.parent.right){
-                newNode.parent.right = tmpNode;
-            }else{
-                newNode.parent.left = tmpNode;
+        if(y.right != null){
+            y.right.parent = x;
+        }
+
+        y.parent = x.parent;
+
+        if (x.parent == Node.sentinel) {
+            this.root.node = y;
+        } else {
+            if (x == x.parent.right) {
+                x.parent.right = y;
+            } else {
+                x.parent.left = y;
             }
         }
-        tmpNode.right = newNode;
-        newNode.parent = tmpNode;
+        y.right = x;
+        x.parent = y;
     }
-        
 
-//    private void rotateR(Node newNode) {
-//        Node tmpNode = newNode.left;
-//        newNode.left = tmpNode.right;
-//        tmpNode.right.parent = newNode;
-//        tmpNode.parent = newNode.parent;
-//        
-//        if(newNode.parent == Node.sentinel){
-//            this.root.node = tmpNode;
-//        }else{
-//            if(newNode == newNode.parent.right){
-//                newNode.parent.right = tmpNode;
-//            }else{
-//                newNode.parent.left = tmpNode;
-//            }
-//        }
-//        tmpNode.right = newNode;
-//        newNode.parent = tmpNode;
-//    }
-       
-   
-    
     @Override
     public String toString() {
         //return "";        
         return print(node);
     }
+
     
-    String print(Node node){
-        if(node.isSentinel()) return "";
-        
-        String parent = node.key +" " + node.color + "\n";
-        String left = print(node.left);
-        String right =print(node.right);
+    
+    String print(Node node) {
+       
+        if (node.isSentinel()) {
+            return "";
+        }
+
+        String parent = node.key + " " + node.color + "\n" + getJoinedLR(node) +"\n";
       
+        String left ="";
+        String right ="";
+     
+             left = /*print(node.left); */ getJoinedLR(node.left);
+             right = /* print(node.right); */ getJoinedLR(node.right);
+        
+        
+        
+
         String result = parent + left + " " + right;
         return result;
+    }
+    
+    String getJoinedLR(Node node){
+        try{
+            return node.left.key +" " + node.left.color + "     " + node.right.key + " " +   node.right.color;
+        }catch(Exception e){
+            return "";
+        }
+        
     }
 
 }

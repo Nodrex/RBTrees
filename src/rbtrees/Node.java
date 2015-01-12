@@ -22,6 +22,7 @@ public class Node {
     Color color = Color.Black;
 
     double key;//this should be generic for future.
+    //double data; //this should be geneic data for future.
 
     Node left;
     Node right;
