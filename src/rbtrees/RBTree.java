@@ -149,28 +149,28 @@ public class RBTree {
             return "";
         }
 
-        String parent = node.key + " " + node.color + "\n" + getJoinedLR(node) +"\n";
+        String parent = node.key + " " + node.color + "\n" + getJoinedChildren(node) +"\n";
       
         String left ="";
         String right ="";
      
-             left = /*print(node.left); */ getJoinedLR(node.left);
-             right = /* print(node.right); */ getJoinedLR(node.right);
+        left = /*print(node.left); */ getJoinedChildren(node.left);
+        right = /* print(node.right); */ getJoinedChildren(node.right);
         
-        
-        
-
         String result = parent + left + " " + right;
         return result;
     }
     
-    String getJoinedLR(Node node){
+    String getJoinedChildren(Node node){
         try{
             return node.left.key +" " + node.left.color + "     " + node.right.key + " " +   node.right.color;
-        }catch(Exception e){
-            return "";
-        }
-        
+        }catch(Exception e){}
+        return "";
+    }
+    
+    
+    void f(){
+         
     }
 
 }
