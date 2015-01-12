@@ -48,13 +48,13 @@ public class Main {
 //            rBTree.insert(new Node(27));
         
         
-//        rBTree.insert(new Node(1));
-//        rBTree.insert(new Node(2));
-//        rBTree.insert(new Node(3));
-//        rBTree.insert(new Node(4));
-//        rBTree.insert(new Node(5));
-//        rBTree.insert(new Node(6));
-//        rBTree.insert(new Node(7));
+        rBTree.insert(new Node(1));
+        rBTree.insert(new Node(2));
+        rBTree.insert(new Node(3));
+        rBTree.insert(new Node(4));
+        rBTree.insert(new Node(5));
+        rBTree.insert(new Node(6));
+        rBTree.insert(new Node(7));
         
 //        
 //          rBTree.insert(new Node(50));
@@ -71,7 +71,7 @@ public class Main {
 //        rBTree.insert(new Node(39));
         
        
-        rBTree.insert(new Node(9));
+       // rBTree.insert(new Node(9));
         
 //        } catch (Exception ex) {
 //            System.out.println(ex);
@@ -83,8 +83,6 @@ public class Main {
         
         System.out.println();
         System.out.println("size: " + rBTree.size);
-        
-        
         
     }
     

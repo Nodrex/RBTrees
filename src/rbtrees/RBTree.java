@@ -1,8 +1,8 @@
 package rbtrees;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Queue;
+import java.util.List;
 
 /**
  * @author NODREX
@@ -137,30 +137,27 @@ public class RBTree {
         printTree(node);
         return "";        
     }
+    
+    public void printTree(Node rootNode) {
 
-    public void printTree(Node root) {
+        List<Node> topLevel = new ArrayList<>();
+        List<Node> bottomLevel = new ArrayList<>();
 
-        Queue<Node> currentLevel = new LinkedList<>();
-        Queue<Node> nextLevel = new LinkedList<>();
+        topLevel.add(rootNode);
 
-        currentLevel.add(root);
-
-        while (!currentLevel.isEmpty()) {
-            Iterator<Node> iter = currentLevel.iterator();
-            while (iter.hasNext()) {
-                Node currentNode = iter.next();
+        while (!topLevel.isEmpty()) {
+            for (Node currentNode : topLevel) {
                 if (currentNode.left != null) {
-                    nextLevel.add(currentNode.left);
+                    bottomLevel.add(currentNode.left);
                 }
                 if (currentNode.right != null) {
-                    nextLevel.add(currentNode.right);
+                    bottomLevel.add(currentNode.right);
                 }
                 System.out.print(currentNode.key + " " + currentNode.color +" ");
             }
             System.out.println();
-            currentLevel = nextLevel;
-            nextLevel = new LinkedList<>();
-
+            topLevel = bottomLevel;
+            bottomLevel = new LinkedList<>();
         }
 
     }
