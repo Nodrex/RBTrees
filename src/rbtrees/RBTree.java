@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- *
  * @author NODREX
  */
 public class RBTree {
@@ -15,133 +14,128 @@ public class RBTree {
     
     int size;
 
-    protected void insert(Node z) throws CloneNotSupportedException {
+    protected void insert(Node newNode) throws CloneNotSupportedException {
         size++;
         if (root == null) {
             root = this;
-            root.node = z;
+            root.node = newNode;
             root.node.parent = Node.sentinel;
             root.node.left = Node.sentinel;
             root.node.right = Node.sentinel;
             return;
         }
-        Node y = root.node;
+        Node tmpNode = root.node;
         while (true) {
-            if (z.key < y.key) {
-                if (y.left == Node.sentinel) break;
-                y = y.left;
+            if (newNode.key < tmpNode.key) {
+                if (tmpNode.left == Node.sentinel) break;
+                tmpNode = tmpNode.left;
             } else {
-                if (y.right == Node.sentinel) break;
-                y = y.right;
+                if (tmpNode.right == Node.sentinel) break;
+                tmpNode = tmpNode.right;
             }
         }
-        z.parent = y;
-        if (z.key < y.key) {
-            y.left = z;
+        newNode.parent = tmpNode;
+        if (newNode.key < tmpNode.key) {
+            tmpNode.left = newNode;
         } else {
-            y.right = z;
+            tmpNode.right = newNode;
         }
         
-        z.left = Node.sentinel;
-        z.right = Node.sentinel;
-        z.color = Color.Red;
+        newNode.left = Node.sentinel;
+        newNode.right = Node.sentinel;
+        newNode.color = Color.Red;
         
-        insertFixup(z);
+        insertFixup(newNode);
     }
     
-    private void insertFixup(Node z) {
-        while (z.parent.color == Color.Red) {
-            if (z.parent == z.parent.parent.left) {
-                Node y = z.parent.parent.right;
-                if (y.color == Color.Red) {
-                    z.parent.color = Color.Black;
-                    y.color = Color.Black;
-                    z.parent.parent.color = Color.Red;
-                    z = z.parent.parent;
+    private void insertFixup(Node newNode) {
+        while (newNode.parent.color == Color.Red) {
+            if (newNode.parent == newNode.parent.parent.left) {
+                Node tmpNode = newNode.parent.parent.right;
+                if (tmpNode.color == Color.Red) {
+                    newNode.parent.color = Color.Black;
+                    tmpNode.color = Color.Black;
+                    newNode.parent.parent.color = Color.Red;
+                    newNode = newNode.parent.parent;
                 } else {
-                    if (z == z.parent.right) {
-                        z = z.parent;
-                        rotateL(z);
+                    if (newNode == newNode.parent.right) {
+                        newNode = newNode.parent;
+                        rotateL(newNode);
                     }
-                    z.parent.color = Color.Black;
-                    z.parent.parent.color = Color.Red;
-                    rotateR(z.parent.parent);
+                    newNode.parent.color = Color.Black;
+                    newNode.parent.parent.color = Color.Red;
+                    rotateR(newNode.parent.parent);
                 }
-            } else if (z.parent == z.parent.parent.right) {
-                Node y = z.parent.parent.left;
+            } else if (newNode.parent == newNode.parent.parent.right) {
+                Node y = newNode.parent.parent.left;
                 if (y.color == Color.Red) {
-                    z.parent.color = Color.Black;
+                    newNode.parent.color = Color.Black;
                     y.color = Color.Black;
-                    z.parent.parent.color = Color.Red; 
-                    z = z.parent.parent;
+                    newNode.parent.parent.color = Color.Red; 
+                    newNode = newNode.parent.parent;
                 } else {
-                    if (z == z.parent.left) {
-                        z = z.parent;
-                        //rotateL(newNode);
-                        //rotateR(newNode.parent.parent);
-                        rotateR(z);
+                    if (newNode == newNode.parent.left) {
+                        newNode = newNode.parent;
+                        rotateR(newNode);
                     }
-                    z.parent.color = Color.Black;
-                    z.parent.parent.color = Color.Red;
-                    //rotateR(newNode.parent.parent);
-                    //rotateL(newNode);
-                    rotateL(z.parent.parent);
+                    newNode.parent.color = Color.Black;
+                    newNode.parent.parent.color = Color.Red;
+                    rotateL(newNode.parent.parent);
                 }
             }
         }
         this.root.node.color = Color.Black;
     }
 
-    private void rotateL(Node x) {
-        Node y = x.right;
-        x.right = y.left;
+    private void rotateL(Node node) {
+        Node tmpNode = node.right;
+        node.right = tmpNode.left;
 
-        if(y.left != null){
-            y.left.parent = x;
+        if(tmpNode.left != null){
+            tmpNode.left.parent = node;
         }
 
-        y.parent = x.parent;
-        if (x.parent == Node.sentinel) {
-            this.root.node = y;
+        tmpNode.parent = node.parent;
+        if (node.parent == Node.sentinel) {
+            this.root.node = tmpNode;
         } else {
-            if (x == x.parent.left) {
-                x.parent.left = y;
+            if (node == node.parent.left) {
+                node.parent.left = tmpNode;
             } else {
-                x.parent.right = y;
+                node.parent.right = tmpNode;
             }
         }
-        y.left = x;
-        x.parent = y;
+        tmpNode.left = node;
+        node.parent = tmpNode;
     }
 
-    private void rotateR(Node x) {
-        Node y = x.left;
-        x.left = y.right;
+    private void rotateR(Node node) {
+        Node tmpNode = node.left;
+        node.left = tmpNode.right;
 
-        if(y.right != null){
-            y.right.parent = x;
+        if(tmpNode.right != null){
+            tmpNode.right.parent = node;
         }
 
-        y.parent = x.parent;
+        tmpNode.parent = node.parent;
 
-        if (x.parent == Node.sentinel) {
-            this.root.node = y;
+        if (node.parent == Node.sentinel) {
+            this.root.node = tmpNode;
         } else {
-            if (x == x.parent.right) {
-                x.parent.right = y;
+            if (node == node.parent.right) {
+                node.parent.right = tmpNode;
             } else {
-                x.parent.left = y;
+                node.parent.left = tmpNode;
             }
         }
-        y.right = x;
-        x.parent = y;
+        tmpNode.right = node;
+        node.parent = tmpNode;
     }
 
     @Override
     public String toString() {
         printTree(node);
         return "";        
-       // return print(node);
     }
 
     public void printTree(Node root) {

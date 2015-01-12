@@ -9,7 +9,7 @@ package rbtrees;
  *
  * @author NODREX
  */
-public class Manager {
+public class Main {
 
     /**
      * @param args the command line arguments

@@ -1,7 +1,6 @@
 package rbtrees;
 
 /**
- *
  * @author NODREX
  */
 public enum Color {

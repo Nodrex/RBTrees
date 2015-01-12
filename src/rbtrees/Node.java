@@ -2,7 +2,6 @@
 package rbtrees;
 
 /**
- *
  * @author NODREX
  */
 public class Node {
