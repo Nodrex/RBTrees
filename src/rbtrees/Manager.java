@@ -13,6 +13,7 @@ public class Manager {
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.CloneNotSupportedException
      */
     public static void main(String[] args) throws CloneNotSupportedException {
         
@@ -47,23 +48,43 @@ public class Manager {
 //            rBTree.insert(new Node(27));
         
         
-        rBTree.insert(new Node(1));
-        rBTree.insert(new Node(2));
-        rBTree.insert(new Node(3));
-        rBTree.insert(new Node(4));
-        rBTree.insert(new Node(5));
-        rBTree.insert(new Node(6));
-        rBTree.insert(new Node(7));
-       
+//        rBTree.insert(new Node(1));
+//        rBTree.insert(new Node(2));
+//        rBTree.insert(new Node(3));
+//        rBTree.insert(new Node(4));
+//        rBTree.insert(new Node(5));
+//        rBTree.insert(new Node(6));
+//        rBTree.insert(new Node(7));
         
+//        
+//          rBTree.insert(new Node(50));
+//        rBTree.insert(new Node(49));
+//        rBTree.insert(new Node(48));
+//        rBTree.insert(new Node(47));
+//        rBTree.insert(new Node(46));
+//        rBTree.insert(new Node(45));
+//        rBTree.insert(new Node(44));
+//        rBTree.insert(new Node(43));
+//        rBTree.insert(new Node(42));
+//        rBTree.insert(new Node(41));
+//        rBTree.insert(new Node(40));
+//        rBTree.insert(new Node(39));
+        
+       
+        rBTree.insert(new Node(9));
         
 //        } catch (Exception ex) {
 //            System.out.println(ex);
 //        }
         
-        System.out.println(rBTree.size);
+        
             
         System.out.println(rBTree);
+        
+        System.out.println();
+        System.out.println("size: " + rBTree.size);
+        
+        
         
     }
     

@@ -1,15 +1,17 @@
 package rbtrees;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  *
  * @author NODREX
- *
- * fesvi yoveltvis shavia.
  */
 public class RBTree {
 
-    Node node;//es iqneba fesvis kvandzi yoveltvis. (this.nod igivea rac this.root.node)
-    RBTree root;
+    Node node;//This is root node. (this.nod is same as this.root.node)
+    RBTree root;//root is alwais black.
     
     int size;
 
@@ -137,40 +139,36 @@ public class RBTree {
 
     @Override
     public String toString() {
-        //return "";        
-        return print(node);
+        printTree(node);
+        return "";        
+       // return print(node);
     }
 
-    
-    
-    String print(Node node) {
-       
-        if (node.isSentinel()) {
-            return "";
+    public void printTree(Node root) {
+
+        Queue<Node> currentLevel = new LinkedList<>();
+        Queue<Node> nextLevel = new LinkedList<>();
+
+        currentLevel.add(root);
+
+        while (!currentLevel.isEmpty()) {
+            Iterator<Node> iter = currentLevel.iterator();
+            while (iter.hasNext()) {
+                Node currentNode = iter.next();
+                if (currentNode.left != null) {
+                    nextLevel.add(currentNode.left);
+                }
+                if (currentNode.right != null) {
+                    nextLevel.add(currentNode.right);
+                }
+                System.out.print(currentNode.key + " " + currentNode.color +" ");
+            }
+            System.out.println();
+            currentLevel = nextLevel;
+            nextLevel = new LinkedList<>();
+
         }
 
-        String parent = node.key + " " + node.color + "\n" + getJoinedChildren(node) +"\n";
-      
-        String left ="";
-        String right ="";
-     
-        left = /*print(node.left); */ getJoinedChildren(node.left);
-        right = /* print(node.right); */ getJoinedChildren(node.right);
-        
-        String result = parent + left + " " + right;
-        return result;
     }
     
-    String getJoinedChildren(Node node){
-        try{
-            return node.left.key +" " + node.left.color + "     " + node.right.key + " " +   node.right.color;
-        }catch(Exception e){}
-        return "";
-    }
-    
-    
-    void f(){
-         
-    }
-
 }
