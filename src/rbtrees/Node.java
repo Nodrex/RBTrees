@@ -16,6 +16,7 @@ public class Node {
     Node right;
     Node parent;
 
+    //imitoa private rom key_S gareshe akali kvandzi ar unda sheiqmnas
     private Node() {
         isSentinelNode = true;
     }

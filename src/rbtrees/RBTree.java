@@ -14,7 +14,7 @@ public class RBTree {
     
     int size;
 
-    protected void insert(Node newNode) throws CloneNotSupportedException {
+    public void insert(Node newNode) {
         size++;
         if (root == null) {
             root = this;
@@ -89,14 +89,14 @@ public class RBTree {
 
     private void rotateL(Node node) {
         Node tmpNode = node.right;
-        node.right = tmpNode.left;
-
+        node.right = tmpNode.left; 
+        
         if(tmpNode.left != null){
             tmpNode.left.parent = node;
         }
-
+        
         tmpNode.parent = node.parent;
-        if (node.parent == Node.sentinel) {
+        if (node.parent == Node.sentinel) { 
             this.root.node = tmpNode;
         } else {
             if (node == node.parent.left) {
